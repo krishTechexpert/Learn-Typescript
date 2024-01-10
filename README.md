@@ -1,5 +1,5 @@
 # Learn-Typescript
-
+Tutorial Link: https://blog.bitsrc.io/react-with-typescript-cheatsheet-9dd891dc5bfe
 
 let name1:string='krish';
 console.log(name1)
