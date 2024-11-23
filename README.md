@@ -1,3 +1,5 @@
+# Learn-Typescript
+Tutorial Link: https://blog.bitsrc.io/react-with-typescript-cheatsheet-9dd891dc5bfe
 
 let name1:string='krish';
 console.log(name1)
@@ -962,33 +964,3 @@ myForm.onsubmit = (e) => {
     const body = document.querySelector('body') as HTMLBodyElement;
     body.append(h2)
 }
-
-
-// generic type another example
-
-// type generic
-
-type DataStorage<T> = {
-    storage:T[]; // storage can contain any type of data at run time
-    add:(data:T) => void
-  }
-  
-  const textStorage:DataStorage<string> = {
-    storage:[],
-    add(data) {this.push(data)}
-  }
-  
-  const userStorage:DataStorage<User2> = {
-    storage:[],
-    add(user){}
-  }
-  
-  function merge<T,U>(a:T,b:U){
-    return {
-      ...a,
-      ...b
-    }
-  }
-  
-  const newUser = merge<{name:string},{score:number}>({name:'krish'},{score:100});
-  console.log(newUser)
