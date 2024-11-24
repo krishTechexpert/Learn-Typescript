@@ -355,6 +355,99 @@ console.log(m1.insertMonth); //and yha s get ker rehy hai using get method
 
  /* ++++++++++++++++++++++++++++++++*/
 
+ //Assigning Dynamic keys to an object then you can used Record,Index signature etc
+
+    //example 
+
+    interface Cache{
+        [key:number]:string
+    }
+
+    function CacheStore(){
+        // one way record [easier way]
+        const cache:Record<number,string> = {};
+        //cache[100] = 'valueHere'
+
+        // second way index signatre
+        //const cache:{[key:number]:string} ={} // here key van be any name
+
+        // third way interface with dynamic keys
+        //const cache:Cache={}
+
+        const add1 = (id:number,value:string) => {
+          cache[id]=value;
+          return cache
+        }
+      
+        const remove = (id:number) => {
+          delete cache[id]
+        }
+        return  {
+          cache,add1,remove
+        }
+      }
+      
+      const {add1,remove,cache} = CacheStore();
+      
+      console.log(add1(101,'kk'))
+      //console.log(remove(101))
+      console.log(cache)
+
+      // index signature example
+      type DynamicObject = {
+        [key: string]: any; // Allow keys to be strings with any value
+      };
+      
+      const obj: DynamicObject = {};
+      obj["name"] = "Alice";
+      obj["age"] = 30;
+      
+      console.log(obj); // { name: 'Alice', age: 30 }
+      
+      // . Using a Function to Add Dynamic Keys
+
+      function addDynamicKey<T extends object,K extends string,V>(obj:T,key:K,value:V):T & Record<K,V>{
+        return {...obj,[key]:value}
+      }
+
+      const baseObject = { id: 1 };
+        const updatedObject = addDynamicKey(baseObject, "name", "Alice");
+
+    console.log(updatedObject); // { id: 1, name: 'Alice' }
+
+    //5. Example with Type-Safe Dynamic Keys
+    interface Config {
+        [key: string]: string | number | boolean; // Limit value types
+      }
+      
+      const settings: Config = {};
+      
+      settings["theme"] = "dark";
+      settings["notifications"] = true;
+      settings["fontSize"] = 14;
+      
+      console.log(settings); // { theme: 'dark', notifications: true, fontSize: 14 }
+
+     // 6. Practical Use Case Example
+     //Dynamic keys are often used in scenarios like building a query object or mapping data.
+     type QueryObject = {
+        [key: string]: string | number;
+      };
+      
+      function buildQuery(params: Record<string, string | number>): QueryObject {
+        const query: QueryObject = {};
+        for (const [key, value] of Object.entries(params)) {
+          query[key] = value;
+        }
+        return query;
+      }
+      
+      const params = { userId: 123, search: "TypeScript", limit: 10 };
+      const query = buildQuery(params);
+      
+      console.log(query); // { userId: 123, search: 'TypeScript', limit: 10 }
+      
+     
 
  // index signature (suppose jab object ki property backend s dynamic aa rehi hai tab humko uska type define kerna hoga )
 // obj[props]
@@ -473,6 +566,9 @@ const monthlyIncomes:Incomes = {
 for(const revenue in monthlyIncomes){
     console.log(`${revenue}:${monthlyIncomes[revenue as keyof Incomes]}`)
 }
+
+// another example for Record
+
 
  /* ++++++++++++++++++++++++++++++++*/
 
