@@ -10,6 +10,12 @@ function login(name:string,email:string,isLogin:boolean):string| boolean{
 
 login('kk','k@gmail.com',true)
 
+//The never type in TypeScript is used for functions that:
+//Never return a value (not even undefined).
+//Always throw an error or result in an infinite loop.
+//Essentially, never indicates that the function cannot successfully complete execution.
+
+
 function handleError(errormessage:string):never{
     throw new Error('failed')
 }
